@@ -1106,11 +1106,16 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
      *
      * Emits a {Transfer} event.
      */
+    uint256 public totalSupply;
+
     function _mint(address to, uint256 tokenId) internal virtual {
         require(to != address(0), "ERC721: mint to the zero address");
         require(!_exists(tokenId), "ERC721: token already minted");
 
         _beforeTokenTransfer(address(0), to, tokenId);
+
+        // logic to add totalSupply tracker
+        totalSupply++;
 
         _balances[to] += 1;
         _owners[tokenId] = to;
@@ -1135,6 +1140,9 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
 
         // Clear approvals
         _approve(address(0), tokenId);
+
+        // logic to remove totalSupply tracker, but we aren't implementing a _burn
+        totalSupply--;
 
         _balances[owner] -= 1;
         delete _owners[tokenId];
