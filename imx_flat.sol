@@ -1274,6 +1274,12 @@ contract TestUnrevealedName is ERC721, Mintable {
         if (bytes(uri_).length > 0) { baseTokenURI = uri_; }
         if (bytes(ext_).length > 0) { baseTokenURI_EXT = ext_; }
     }
+    function setTokenURI(string memory uri_) public onlyOwner {
+        baseTokenURI = uri_;
+    }
+    function setTokenURI_EXT(string memory ext_) public onlyOwner {
+        baseTokenURI_EXT = ext_;
+    }
     
     // 0xInuarashi Custom functions
     function multiTransferFrom(address from_, address to_, uint256[] memory tokenIds_) public {
